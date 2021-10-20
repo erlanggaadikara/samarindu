@@ -1,26 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Router } from "@reach/router";
+import { LocalizationProvider } from "@mui/lab";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import Loading from "view/component/Show/Loading";
+import Alert from "view/component/Show/Alert";
+import Toast from "view/component/Show/Toast";
+
+import Landing from "view/page/landing";
+import Login from "view/page/register/Login";
+import Daftar from "view/page/register/Daftar";
+
+import "control/util/global";
+import "view/component/Show/Loading";
+import "view/component/Show/Alert";
+import "view/component/Show/Toast";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <Router>
+          <Landing path="/" />
+          <Login path="/Login" />
+          <Daftar path="/Daftar" />
+        </Router>
+        <Alert />
+        <Loading />
+        <Toast />
+      </LocalizationProvider>
+    </ThemeProvider>
   );
 }
+
+const theme = createTheme({
+  breakpoints: {
+    values: {
+      mobile: 0,
+      tablet: 640,
+      laptop: 1024,
+      desktop: 1280,
+    },
+  },
+  palette: {
+    primary: {
+      main: "#0080FF",
+      dark: "202020",
+    },
+    bg: {
+      main: "#FFFFF",
+    },
+  },
+});
 
 export default App;
